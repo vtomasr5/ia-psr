@@ -1,0 +1,9 @@
+*.class
+.DS_Store
+*~
+/build/
+/nbproject/private/
+*.pdf
+.directory
+*.jar
+*.bin
