@@ -7,8 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JDialog;
-import javax.swing.JOptionPane;
+import javax.swing.*;
 
 /**
  *
@@ -18,7 +17,9 @@ public class PSR extends javax.swing.JFrame {
     /** Creates new form PSR */
     public PSR() {
         initComponents();
-        ventana = new JDialog();
+        initLookAndFeel();
+        SwingUtilities.updateComponentTreeUI(this);
+        ventana = new JDialog();        
     }
     
     JDialog ventana;
@@ -41,6 +42,29 @@ public class PSR extends javax.swing.JFrame {
     private int[] parcial;
     private int num_tar2=0;
     private Lista_trabajadores[] consistencia_arco;
+    
+    private void initLookAndFeel() {
+        String lookAndFeel;
+        String osname = System.getProperty("os.name").toLowerCase();
+        
+        if (osname.equals("linux")) {
+            lookAndFeel = "com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel";
+        } else if (osname.startsWith("windows")) {
+            lookAndFeel = "com.sun.java.swing.plaf.windows.WindowsLookAndFeel";
+        } else if (osname.startsWith("mac")) {
+            lookAndFeel = UIManager.getSystemLookAndFeelClassName();
+//            lookAndFeel = "com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel";
+        } else {
+            lookAndFeel = UIManager.getCrossPlatformLookAndFeelClassName();
+        }
+
+        try {
+            UIManager.setLookAndFeel(lookAndFeel);
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e);
+        }
+    }        
+    
     private void GestionTareasCreadas(tarea t){
     int i=0;
     while (TablaTareas.getValueAt(i, 0) != null){
@@ -93,33 +117,33 @@ private int [] ordenar_trabajadores2 (int [] trabajadores){
     }
      return aux;
 }
-    private int [] ordenar_trabajadores (int [] trabajadores){
-    int [] aux = new int [trabajadores.length];
-    int [] trab = new int [trabajadores.length];
-    for (int i=0; i<trabajadores.length; i++){
-        trab[i] = trabajadores[i];
-    }
-    int pos = -1;
-    int valor = 1000;
-    for (int i=0; i<trabajadores.length; i++){
-        valor = 1000;
-        for (int j=0; j<trabajadores.length; j++){
-            if (trab[j] <= valor){
-                valor= trab[j];
-                pos = j;
-            }
-        }
-        trab [pos] = 1000;
-        aux [i] = pos+1;
-    }
+//    private int [] ordenar_trabajadores (int [] trabajadores){
+//    int [] aux = new int [trabajadores.length];
+//    int [] trab = new int [trabajadores.length];
+//    for (int i=0; i<trabajadores.length; i++){
+//        trab[i] = trabajadores[i];
+//    }
+//    int pos = -1;
+//    int valor = 1000;
+//    for (int i=0; i<trabajadores.length; i++){
+//        valor = 1000;
+//        for (int j=0; j<trabajadores.length; j++){
+//            if (trab[j] <= valor){
+//                valor= trab[j];
+//                pos = j;
+//            }
+//        }
+//        trab [pos] = 1000;
+//        aux [i] = pos+1;
+//    }
 //    System.out.println (trabajadores.length);
 //    System.out.println ("comienzo");
 //    for (int j=0; j<trabajadores.length; j++){
 //           System.out.println (aux[j]);
 //    }
 //    System.out.println ("fin");
-    return aux;
-}
+//    return aux;
+//}
     private boolean equitativo(int[] asig){
         int min_tareas_trab = 1000;
         int max_tareas_trab = -1;
@@ -1480,29 +1504,29 @@ private void limpiar_tabla(){
                 }
             }
 }
-private void visualizar_resultadosNO(int[] resultados){
-    tarea t;
-    limpiar_tabla();
-    if (resultados[1]!=-1){
-        for (int k=0;k<numero_trabajadores;k++){
-            TablaTareasAsignadas.setValueAt(k+1, k, 0);
-        }
-        for (int i=0; i< resultados.length; i++){
-            int j=1;
-            while (TablaTareasAsignadas.getValueAt(resultados[i]-1, j)!=null){
-                j++;
-            }
-            t = ltareas.obtener_tarea(i+1);
-            TablaTareasAsignadas.setValueAt(t.get_nombre(), resultados[i]-1,j);
-    //            System.out.println("La tarea: " + i + " la realiza el trabajador: " + resultado2 [i]);
-    //            System.out.println ("hora inicio: " + ltareas.obtener_tarea(i+1).get_hora_inicio());
-    //            System.out.println ("hora fin: " + ltareas.obtener_tarea(i+1).get_hora_fin());
-        }
-        TextoDetalleTarea.setText("");
-    }else{
-        TextoDetalleTarea.setText("NO EXISTE SOLUCIÓN");
-    }
-}
+//private void visualizar_resultadosNO(int[] resultados){
+//    tarea t;
+//    limpiar_tabla();
+//    if (resultados[1]!=-1){
+//        for (int k=0;k<numero_trabajadores;k++){
+//            TablaTareasAsignadas.setValueAt(k+1, k, 0);
+//        }
+//        for (int i=0; i< resultados.length; i++){
+//            int j=1;
+//            while (TablaTareasAsignadas.getValueAt(resultados[i]-1, j)!=null){
+//                j++;
+//            }
+//            t = ltareas.obtener_tarea(i+1);
+//            TablaTareasAsignadas.setValueAt(t.get_nombre(), resultados[i]-1,j);
+//    //            System.out.println("La tarea: " + i + " la realiza el trabajador: " + resultado2 [i]);
+//    //            System.out.println ("hora inicio: " + ltareas.obtener_tarea(i+1).get_hora_inicio());
+//    //            System.out.println ("hora fin: " + ltareas.obtener_tarea(i+1).get_hora_fin());
+//        }
+//        TextoDetalleTarea.setText("");
+//    }else{
+//        TextoDetalleTarea.setText("NO EXISTE SOLUCIÓN");
+//    }
+//}
 //CAMBIAR!!!! PARA QUE SE VEAN LOS RESULTADOS PARCIALES
 private void visualizar_resultados(int[] resultados) throws ParseException{
     tarea t;
@@ -1556,6 +1580,7 @@ private void visualizar_resultados(int[] resultados) throws ParseException{
 //            TextoEstadoSolucion.setBackground(Color.black);
 //            TextoEstadoSolucion.setForeground(Color.ORANGE);
 //            TextoEstadoSolucion.setText("PARCIAL");
+//            TextoDetalleTarea.setText("SOLUCIÓN PARCIAL");
         }
 //    }else{
 //        TextoEstadoSolucion.setBackground(Color.black);
@@ -1564,22 +1589,22 @@ private void visualizar_resultados(int[] resultados) throws ParseException{
 //        TextoDetalleTarea.setText("NO EXISTE SOLUCIÓN");
 //    }
 }
-private boolean hay_solucion(){
-    int conflictos=0;
-    for (int i=0;i<tareas_creadas;i++){
-        for (int j=0;j<tareas_creadas;j++){
-            if (matriz_res[i][j] && i!=j){
-                conflictos++;
-            }
-        }
-        if (conflictos > numero_trabajadores){
-            return false;
-        }else{
-            conflictos=0;
-        }
-    }
-    return true;
-}
+//private boolean hay_solucion(){
+//    int conflictos=0;
+//    for (int i=0;i<tareas_creadas;i++){
+//        for (int j=0;j<tareas_creadas;j++){
+//            if (matriz_res[i][j] && i!=j){
+//                conflictos++;
+//            }
+//        }
+//        if (conflictos > numero_trabajadores){
+//            return false;
+//        }else{
+//            conflictos=0;
+//        }
+//    }
+//    return true;
+//}
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -1634,8 +1659,6 @@ private boolean hay_solucion(){
         BotonCrearTarea = new javax.swing.JButton();
         BotonGenerarAleatorio = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        PanelReiniciarTareas = new javax.swing.JPanel();
-        LabelReiniciarTareas = new javax.swing.JLabel();
         BotonReiniciarTareas = new javax.swing.JButton();
         PanelVisualizaTareasCreadas = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -1688,9 +1711,19 @@ private boolean hay_solucion(){
         GrupoTareasR.add(ConHorario);
         ConHorario.setSelected(true);
         ConHorario.setText("Con horario");
+        ConHorario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ConHorarioActionPerformed(evt);
+            }
+        });
 
         GrupoTareasR.add(SinHorario);
         SinHorario.setText("Sin horario");
+        SinHorario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SinHorarioActionPerformed(evt);
+            }
+        });
 
         LabelRango.setText("RANGO");
 
@@ -1751,7 +1784,6 @@ private boolean hay_solucion(){
                     .addComponent(LabelRango))
                 .addGap(18, 18, 18)
                 .addGroup(PanelGenerarAleatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ConHorario)
                     .addGroup(PanelGenerarAleatorioLayout.createSequentialGroup()
                         .addGroup(PanelGenerarAleatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(LabelHoraFinR)
@@ -1763,7 +1795,8 @@ private boolean hay_solucion(){
                     .addGroup(PanelGenerarAleatorioLayout.createSequentialGroup()
                         .addGroup(PanelGenerarAleatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(LabelHoraInicioR)
-                            .addComponent(TextoHoraInicioR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(TextoHoraInicioR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ConHorario))
                         .addGap(29, 29, 29)
                         .addGroup(PanelGenerarAleatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(LabelDuracionMinimaR)
@@ -1908,11 +1941,13 @@ private boolean hay_solucion(){
             .addGroup(MenuAlgoritmosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(MenuAlgoritmosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(MenuAlgoritmosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(PanelInfoEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(PanelAlgoritmos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(BotonEjecutar, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(BotonEjecutar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(MenuAlgoritmosLayout.createSequentialGroup()
+                        .addGroup(MenuAlgoritmosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(PanelInfoEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(PanelAlgoritmos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         MenuAlgoritmosLayout.setVerticalGroup(
             MenuAlgoritmosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1943,11 +1978,6 @@ private boolean hay_solucion(){
 
         TextoDuracionTarea.setText("01:00");
         TextoDuracionTarea.setPreferredSize(new java.awt.Dimension(45, 27));
-        TextoDuracionTarea.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TextoDuracionTareaActionPerformed(evt);
-            }
-        });
 
         TextoCantidadTareas.setText("1");
         TextoCantidadTareas.setPreferredSize(new java.awt.Dimension(40, 27));
@@ -1972,37 +2002,12 @@ private boolean hay_solucion(){
 
         jLabel2.setText("duracion:");
 
-        PanelReiniciarTareas.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        LabelReiniciarTareas.setText("Reiniciar tareas");
-
         BotonReiniciarTareas.setText("Reiniciar");
         BotonReiniciarTareas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BotonReiniciarTareasActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout PanelReiniciarTareasLayout = new javax.swing.GroupLayout(PanelReiniciarTareas);
-        PanelReiniciarTareas.setLayout(PanelReiniciarTareasLayout);
-        PanelReiniciarTareasLayout.setHorizontalGroup(
-            PanelReiniciarTareasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelReiniciarTareasLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(PanelReiniciarTareasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(BotonReiniciarTareas)
-                    .addComponent(LabelReiniciarTareas))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        PanelReiniciarTareasLayout.setVerticalGroup(
-            PanelReiniciarTareasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelReiniciarTareasLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(LabelReiniciarTareas)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(BotonReiniciarTareas)
-                .addGap(32, 32, 32))
-        );
 
         javax.swing.GroupLayout PanelCreacionTareasLayout = new javax.swing.GroupLayout(PanelCreacionTareas);
         PanelCreacionTareas.setLayout(PanelCreacionTareasLayout);
@@ -2014,7 +2019,11 @@ private boolean hay_solucion(){
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(PanelCreacionTareasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PanelCreacionTareasLayout.createSequentialGroup()
-                        .addComponent(LabelDuracionTarea)
+                        .addComponent(TextoNombreTarea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(LabelCantidadTareas)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(TextoCantidadTareas, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
                     .addGroup(PanelCreacionTareasLayout.createSequentialGroup()
                         .addGroup(PanelCreacionTareasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2036,15 +2045,9 @@ private boolean hay_solucion(){
                                 .addGroup(PanelCreacionTareasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(BotonGenerarAleatorio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(BotonCrearTarea, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGroup(PanelCreacionTareasLayout.createSequentialGroup()
-                                .addComponent(TextoNombreTarea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(LabelCantidadTareas)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(TextoCantidadTareas, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
-                        .addComponent(PanelReiniciarTareas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(37, 37, 37))))
+                            .addComponent(LabelDuracionTarea))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 164, Short.MAX_VALUE)
+                        .addComponent(BotonReiniciarTareas))))
         );
         PanelCreacionTareasLayout.setVerticalGroup(
             PanelCreacionTareasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2070,11 +2073,12 @@ private boolean hay_solucion(){
                             .addComponent(TextoDuracionTarea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(BotonGenerarAleatorio))
                         .addGap(1, 1, 1)
-                        .addComponent(LabelDuracionTarea))
+                        .addComponent(LabelDuracionTarea)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(PanelCreacionTareasLayout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addComponent(PanelReiniciarTareas, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(8, Short.MAX_VALUE))
+                        .addGap(33, 92, Short.MAX_VALUE)
+                        .addComponent(BotonReiniciarTareas)))
+                .addContainerGap())
         );
 
         PanelVisualizaTareasCreadas.setBorder(javax.swing.BorderFactory.createTitledBorder("Visualización tareas creadas"));
@@ -2399,7 +2403,7 @@ private boolean hay_solucion(){
                 .addGap(39, 39, 39)
                 .addComponent(LabelNodosVisitados)
                 .addGap(44, 44, 44)
-                .addComponent(TextoNodosVisitados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(TextoNodosVisitados, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
                 .addGap(43, 43, 43)
                 .addComponent(LabelTiempoEjecucion)
                 .addGap(18, 18, 18)
@@ -2430,11 +2434,9 @@ private boolean hay_solucion(){
             PanelResultadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelResultadosLayout.createSequentialGroup()
                 .addGroup(PanelResultadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PanelResultadosLayout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 824, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(PanelEficienciaComputacional, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(PanelEficienciaComputacional, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2))
                 .addContainerGap())
         );
         PanelResultadosLayout.setVerticalGroup(
@@ -2446,7 +2448,7 @@ private boolean hay_solucion(){
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(PanelEficienciaComputacional, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
 
         MenuGeneral.addTab("Visualizar resultados", PanelResultados);
@@ -2456,19 +2458,14 @@ private boolean hay_solucion(){
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(MenuAlgoritmos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(MenuGeneral, javax.swing.GroupLayout.PREFERRED_SIZE, 853, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(MenuAlgoritmos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(MenuGeneral, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27))
+            .addComponent(MenuAlgoritmos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(MenuGeneral, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -2691,32 +2688,42 @@ private boolean hay_solucion(){
 
     private void BotonGenerarAleatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonGenerarAleatorioActionPerformed
         //ventana.setSize(725, 250);
+        ventana.setTitle("Generar aleatoriamente");
         ventana.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         ventana.setLocationRelativeTo(this);
+        SwingUtilities.updateComponentTreeUI(ventana);
         ventana.add(PanelGenerarAleatorio);
         ventana.pack();
         ventana.setVisible(true);
     }//GEN-LAST:event_BotonGenerarAleatorioActionPerformed
 
     private void BotonGenerarRandomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonGenerarRandomActionPerformed
-        if (ConHorario.isSelected()){
-            if (!TextoHoraInicioR.getText().equals("") && !TextoHoraFinR.getText().equals("")){
-                try {
-                    tarea_horario_auto(Integer.parseInt(TextoNumeroTareasR.getText()), TextoHoraInicioR.getText(), TextoHoraFinR.getText(), TextoDuracionMinimaR.getText(), TextoDuracionMaximaR.getText());
-                } catch (ParseException ex) {
-                    Logger.getLogger(PSR.class.getName()).log(Level.SEVERE, null, ex);
+        if (TextoNumeroTareasR.getText().equals("") || Integer.valueOf(TextoNumeroTareasR.getText()) <= 0) {
+            JOptionPane.showMessageDialog(ventana, "El numero de tareas tiene que ser positvo.", "Alerta", JOptionPane.WARNING_MESSAGE);
+        } else {
+            if (TextoHoraInicioR.getText().equals("") || TextoHoraFinR.getText().equals("") || TextoDuracionMinimaR.getText().equals("") || TextoDuracionMaximaR.getText().equals("")) {
+                JOptionPane.showMessageDialog(ventana, "Faltan datos por rellenar.", "Alerta", JOptionPane.WARNING_MESSAGE);
+            } else {
+                if (ConHorario.isSelected()){
+                    if (!TextoHoraInicioR.getText().equals("") && !TextoHoraFinR.getText().equals("")){
+                        try {
+                            tarea_horario_auto(Integer.parseInt(TextoNumeroTareasR.getText()), TextoHoraInicioR.getText(), TextoHoraFinR.getText(), TextoDuracionMinimaR.getText(), TextoDuracionMaximaR.getText());
+                        } catch (ParseException ex) {
+                            Logger.getLogger(PSR.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                }else{
+                    if (!TextoDuracionMinimaR.getText().equals("") && !TextoDuracionMaximaR.getText().equals("")){
+                        try {
+                            tarea_libre_auto(Integer.parseInt(TextoNumeroTareasR.getText()), TextoDuracionMinimaR.getText(), TextoDuracionMaximaR.getText());
+                        } catch (ParseException ex) {
+                            Logger.getLogger(PSR.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
                 }
-            }
-        }else{
-             if (!TextoDuracionMinimaR.getText().equals("") && !TextoDuracionMaximaR.getText().equals("")){
-                try {
-                    tarea_libre_auto(Integer.parseInt(TextoNumeroTareasR.getText()), TextoDuracionMinimaR.getText(), TextoDuracionMaximaR.getText());
-                } catch (ParseException ex) {
-                    Logger.getLogger(PSR.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                ventana.setVisible(false);
             }
         }
-        ventana.setVisible(false);
     }//GEN-LAST:event_BotonGenerarRandomActionPerformed
 
     private void TablaTareasAsignadasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaTareasAsignadasMouseClicked
@@ -2732,19 +2739,30 @@ private boolean hay_solucion(){
         }
     }//GEN-LAST:event_TablaTareasAsignadasMouseClicked
 
-    private void TextoDuracionTareaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextoDuracionTareaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TextoDuracionTareaActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         ventana.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void SinHorarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SinHorarioActionPerformed
+        TextoHoraInicioR.setEnabled(false);
+        TextoHoraFinR.setEnabled(false);
+        LabelHoraFinR.setEnabled(false);
+        LabelHoraInicioR.setEnabled(false);
+    }//GEN-LAST:event_SinHorarioActionPerformed
+
+    private void ConHorarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConHorarioActionPerformed
+        TextoHoraInicioR.setEnabled(true);
+        TextoHoraFinR.setEnabled(true);
+        LabelHoraFinR.setEnabled(true);
+        LabelHoraInicioR.setEnabled(true);
+    }//GEN-LAST:event_ConHorarioActionPerformed
 
     /**
     * @param args the command line arguments
     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new PSR().setVisible(true);
             }
@@ -2777,7 +2795,6 @@ private boolean hay_solucion(){
     private javax.swing.JLabel LabelNumeroTotalTareas;
     private javax.swing.JLabel LabelNumeroTrabajadores;
     private javax.swing.JLabel LabelRango;
-    private javax.swing.JLabel LabelReiniciarTareas;
     private javax.swing.JLabel LabelTiempoEjecucion;
     private javax.swing.JPanel MenuAlgoritmos;
     private javax.swing.JTabbedPane MenuGeneral;
@@ -2787,7 +2804,6 @@ private boolean hay_solucion(){
     private javax.swing.JPanel PanelGenerarAleatorio;
     private javax.swing.JPanel PanelGestionTareas;
     private javax.swing.JPanel PanelInfoEmpresa;
-    private javax.swing.JPanel PanelReiniciarTareas;
     private javax.swing.JPanel PanelResultados;
     private javax.swing.JPanel PanelVisualizaTareasCreadas;
     private javax.swing.JRadioButton PrimeroConsistenciaArco;
