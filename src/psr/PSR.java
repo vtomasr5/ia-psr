@@ -84,66 +84,7 @@ public class PSR extends javax.swing.JFrame {
     }
     TextoNumeroTotalTareas.setText(Integer.toString(tareas_creadas));
 }
-//private int [] ordenar_trabajadores2 (int [] trabajadores){
-//    int [] aux = new int [trabajadores.length];
-//    int [] trab = new int [trabajadores.length];
-//    for (int i=0; i<trabajadores.length; i++){
-//        trab[i] = trabajadores[i];
-//    }
-//    int pos = -1;
-//    int valor = 1000;
-//    for (int i=0; i<trabajadores.length; i++){
-//        valor = 1000;
-//        for (int j=0; j<trabajadores.length; j++){
-//            if (trab[j] <= valor){
-//                valor= trab[j];
-//                pos = j;
-//            }
-//        }
-//        trab [pos] = 1000;
-//        aux [i] = pos+1;
-//    }
-////    System.out.println (trabajadores.length);
-////    System.out.println ("comienzo");
-////    for (int j=0; j<trabajadores.length; j++){
-////           System.out.println (aux[j]);
-////    }
-////    System.out.println ("fin");
-//    int min_tareas_trab = trabajadores[aux[0]-1];
-//    for (int i=1; i<aux.length; i++){
-//        if (trabajadores[aux[i]-1] > min_tareas_trab ){
-//            aux[i]=-1;
-//        }
-//    }
-//     return aux;
-//}
-//    private int [] ordenar_trabajadores (int [] trabajadores){
-//    int [] aux = new int [trabajadores.length];
-//    int [] trab = new int [trabajadores.length];
-//    for (int i=0; i<trabajadores.length; i++){
-//        trab[i] = trabajadores[i];
-//    }
-//    int pos = -1;
-//    int valor = 1000;
-//    for (int i=0; i<trabajadores.length; i++){
-//        valor = 1000;
-//        for (int j=0; j<trabajadores.length; j++){
-//            if (trab[j] <= valor){
-//                valor= trab[j];
-//                pos = j;
-//            }
-//        }
-//        trab [pos] = 1000;
-//        aux [i] = pos+1;
-//    }
-//    System.out.println (trabajadores.length);
-//    System.out.println ("comienzo");
-//    for (int j=0; j<trabajadores.length; j++){
-//           System.out.println (aux[j]);
-//    }
-//    System.out.println ("fin");
-//    return aux;
-//}
+
     private boolean equitativo(int[] asig){
         int min_tareas_trab = 1000;
         int max_tareas_trab = -1;
@@ -504,110 +445,6 @@ private int[] PrimeroMVRGradoHeuristico2(int[] asignaciones, int[] trabajadores,
         return fallo;
 }
 
-//private int[] PrimeroMVRGradoHeuristicoConsistenciaArco2(int[] asignaciones, int[] trabajadores, Lista_tareas[] ltareas_trab, Lista_tareas ltareas,boolean[][] matriz_res, Lista_trabajadores[] ca) throws ParseException{
-//             int pos_tarea;
-//    String hora_inicio, hora_fin;
-//    int pos_trabajador;
-//     trabajador tra;
-//    int[] resultado = new int [tareas_creadas];
-//    Lista_trabajadores[] ca_backup = new Lista_trabajadores[tareas_creadas];
-//    if (asignacion_completa(asignaciones) && equitativo(asignaciones)){
-//        return asignaciones;
-//    }
-//    pos_tarea = seleccionar_tarea_mvr_gh(asignaciones, ltareas_trab, ltareas, matriz_res);//ltareas.obtener_tarea(pos_tarea).get_hora_inicio();
-//    if (pos_tarea !=-1){
-//        //for (int i=0;i<numero_trabajadores;i++){
-//        tra = ca [pos_tarea-1].primero();
-//        while (tra != null){
-//            pos_trabajador = tra.get_numero();
-//            nodos_visitados++;
-//            if (pos_trabajador != -1){
-//                if (asignacion_valida(pos_tarea, pos_trabajador-1, ltareas_trab, ltareas, matriz_res)){
-//                    asignaciones[pos_tarea-1]=pos_trabajador;
-//                    trabajador t;
-//                    for (int x=0 ; x<tareas_creadas; x++){
-//                        ca_backup[x] = new Lista_trabajadores ();
-//                        t = ca [x].primero();
-//                        while (t != null){
-//                            ca_backup [x].insertarnuevo(t.get_numero());
-//                            t = t.get_siguiente();
-//                        }
-//                    }
-//                    propagacion (pos_trabajador, pos_tarea, ca, matriz_res);
-//                    trabajadores[pos_trabajador-1]++;
-//                   if (ltareas.obtener_tarea(pos_tarea).get_hora_inicio_date().getHours()<10){
-//                        if (ltareas.obtener_tarea(pos_tarea).get_hora_inicio_date().getMinutes()<10){
-//                        hora_inicio = "0"+Integer.toString(ltareas.obtener_tarea(pos_tarea).get_hora_inicio_date().getHours()) + ":0" +
-//                           Integer.toString(ltareas.obtener_tarea(pos_tarea).get_hora_inicio_date().getMinutes());
-//                        }else{
-//                        hora_inicio = "0"+Integer.toString(ltareas.obtener_tarea(pos_tarea).get_hora_inicio_date().getHours()) + ":" +
-//                           Integer.toString(ltareas.obtener_tarea(pos_tarea).get_hora_inicio_date().getMinutes());
-//                        }
-//                    }else{
-//                        if (ltareas.obtener_tarea(pos_tarea).get_hora_inicio_date().getMinutes()<10){
-//                        hora_inicio = Integer.toString(ltareas.obtener_tarea(pos_tarea).get_hora_inicio_date().getHours()) + ":0" +
-//                           Integer.toString(ltareas.obtener_tarea(pos_tarea).get_hora_inicio_date().getMinutes());
-//                        }else{
-//                        hora_inicio = Integer.toString(ltareas.obtener_tarea(pos_tarea).get_hora_inicio_date().getHours()) + ":" +
-//                           Integer.toString(ltareas.obtener_tarea(pos_tarea).get_hora_inicio_date().getMinutes());
-//                        }
-//                    }
-//                    if (ltareas.obtener_tarea(pos_tarea).get_hora_fin_date().getHours()<10){
-//                        if (ltareas.obtener_tarea(pos_tarea).get_hora_fin_date().getMinutes()<10){
-//                        hora_fin = "0"+Integer.toString(ltareas.obtener_tarea(pos_tarea).get_hora_fin_date().getHours()) + ":0" +
-//                           Integer.toString(ltareas.obtener_tarea(pos_tarea).get_hora_fin_date().getMinutes());
-//                        }else{
-//                        hora_fin = "0"+Integer.toString(ltareas.obtener_tarea(pos_tarea).get_hora_fin_date().getHours()) + ":" +
-//                           Integer.toString(ltareas.obtener_tarea(pos_tarea).get_hora_fin_date().getMinutes());
-//                        }
-//                    }else{
-//                        if (ltareas.obtener_tarea(pos_tarea).get_hora_fin_date().getMinutes()<10){
-//                        hora_fin = Integer.toString(ltareas.obtener_tarea(pos_tarea).get_hora_fin_date().getHours()) + ":0" +
-//                           Integer.toString(ltareas.obtener_tarea(pos_tarea).get_hora_fin_date().getMinutes());
-//                        }else{
-//                        hora_fin = Integer.toString(ltareas.obtener_tarea(pos_tarea).get_hora_fin_date().getHours()) + ":" +
-//                           Integer.toString(ltareas.obtener_tarea(pos_tarea).get_hora_fin_date().getMinutes());
-//                        }
-//                    }
-//                    ltareas_trab[pos_trabajador-1].insertarnuevoespecial(ltareas.obtener_tarea(pos_tarea).get_nombre(), hora_inicio, hora_fin);
-//                    AC3 (ca, matriz_res, asignaciones);
-//                    if (equitativo2(asignaciones) && !asignacion_completa(asignaciones)){
-//                        System.arraycopy(asignaciones, 0,parcial, 0, asignaciones.length);
-////                        System.arraycopy(ltareas_trab, 0, ltareas_trab_parcial, 0, ltareas_trab.length);
-//                        ltareas_trab_parcial = ltareas_trab.clone();
-//                                //parcial = asignaciones;
-//                    }
-//                    resultado = PrimeroMVRGradoHeuristicoConsistenciaArco2(asignaciones, trabajadores, ltareas_trab, ltareas, matriz_res, ca);
-//                    //nodos_visitados++;
-//                   if (asignacion_completa(resultado) && equitativo(resultado)){
-//                       return resultado;
-//                   }else{
-//                        if (ltareas.obtener_tarea(pos_tarea).get_tipo()==true){
-//                            ltareas.obtener_tarea(pos_tarea).set_hora_inicio_date(null);
-//                            ltareas.obtener_tarea(pos_tarea).set_hora_fin_date(null);
-//                            comprobar_restricciones(matriz_res, ltareas);
-//                        }
-//
-//                        for (int x=0 ; x<tareas_creadas; x++){
-//                        ca[x] = new Lista_trabajadores ();
-//                        t = ca_backup [x].primero();
-//                        while (t != null){
-//                            ca [x].insertarnuevo(t.get_numero());
-//                            t = t.get_siguiente();
-//                        }
-//                    }
-//                       asignaciones[pos_tarea-1]=-1;
-//                       trabajadores[pos_trabajador-1]--;
-//                       ltareas_trab[pos_trabajador-1].eliminar_tarea(ltareas.obtener_tarea(pos_tarea).get_nombre());
-//                   }
-//                }
-//            }
-//             tra = tra.get_siguiente();
-//        }
-//    }
-//        return fallo;
-//}
-
 private int[] PrimeroGradoHeuristico2(int[] asignaciones, int[] trabajadores, Lista_tareas[] ltareas_trab, Lista_tareas ltareas,boolean[][] matriz_res) throws ParseException{
            int pos_tarea;
     boolean tar_dur = false;
@@ -885,134 +722,6 @@ private int[] PrimeroConsistenciaArco(int[] asignaciones, int[] trabajadores, Li
 
 }
 
-//private int[] Extra(int[] asignaciones, int[] trabajadores, Lista_tareas[] ltareas_trab, Lista_tareas ltareas,boolean[][] matriz_res, Lista_trabajadores[] ca) throws ParseException{
-//    int pos_tarea;
-//    String hora_inicio, hora_fin;
-//    int pos_trabajador;
-//     trabajador tra;
-//     int [] aux = new int [numero_trabajadores];
-//    int[] resultado = new int [tareas_creadas];
-//    Lista_trabajadores[] ca_backup = new Lista_trabajadores[tareas_creadas];
-//    if (asignacion_completa(asignaciones)){
-//        return asignaciones;
-//    }
-//    pos_tarea = seleccionar_tarea_mvr_gh(asignaciones, ltareas_trab, ltareas, matriz_res);//ltareas.obtener_tarea(pos_tarea).get_hora_inicio();
-//    if (pos_tarea !=-1){
-//        aux = ordenar_trabajadores2 (trabajadores);
-//        for (int i=0;i<numero_trabajadores;i++){
-////        tra = ca [pos_tarea-1].primero();
-////        while (tra != null){
-////            pos_trabajador = i+1;//tra.get_numero();
-//            pos_trabajador = aux[i];
-//            nodos_visitados++;
-//            if (pos_trabajador != -1){
-//                if (asignacion_valida(pos_tarea, pos_trabajador-1, ltareas_trab, ltareas, matriz_res)){
-//                    asignaciones[pos_tarea-1]=pos_trabajador;
-//                    trabajador t;
-//                    for (int x=0 ; x<tareas_creadas; x++){
-//                        ca_backup[x] = new Lista_trabajadores ();
-//                        t = ca [x].primero();
-//                        while (t != null){
-//                            ca_backup [x].insertarnuevo(t.get_numero());
-//                            t = t.get_siguiente();
-//                        }
-//                    }
-//                    propagacion (pos_trabajador, pos_tarea, ca, matriz_res);
-//                    trabajadores[pos_trabajador-1]++;
-//                   if (ltareas.obtener_tarea(pos_tarea).get_hora_inicio_date().getHours()<10){
-//                        if (ltareas.obtener_tarea(pos_tarea).get_hora_inicio_date().getMinutes()<10){
-//                        hora_inicio = "0"+Integer.toString(ltareas.obtener_tarea(pos_tarea).get_hora_inicio_date().getHours()) + ":0" +
-//                           Integer.toString(ltareas.obtener_tarea(pos_tarea).get_hora_inicio_date().getMinutes());
-//                        }else{
-//                        hora_inicio = "0"+Integer.toString(ltareas.obtener_tarea(pos_tarea).get_hora_inicio_date().getHours()) + ":" +
-//                           Integer.toString(ltareas.obtener_tarea(pos_tarea).get_hora_inicio_date().getMinutes());
-//                        }
-//                    }else{
-//                        if (ltareas.obtener_tarea(pos_tarea).get_hora_inicio_date().getMinutes()<10){
-//                        hora_inicio = Integer.toString(ltareas.obtener_tarea(pos_tarea).get_hora_inicio_date().getHours()) + ":0" +
-//                           Integer.toString(ltareas.obtener_tarea(pos_tarea).get_hora_inicio_date().getMinutes());
-//                        }else{
-//                        hora_inicio = Integer.toString(ltareas.obtener_tarea(pos_tarea).get_hora_inicio_date().getHours()) + ":" +
-//                           Integer.toString(ltareas.obtener_tarea(pos_tarea).get_hora_inicio_date().getMinutes());
-//                        }
-//                    }
-//                    if (ltareas.obtener_tarea(pos_tarea).get_hora_fin_date().getHours()<10){
-//                        if (ltareas.obtener_tarea(pos_tarea).get_hora_fin_date().getMinutes()<10){
-//                        hora_fin = "0"+Integer.toString(ltareas.obtener_tarea(pos_tarea).get_hora_fin_date().getHours()) + ":0" +
-//                           Integer.toString(ltareas.obtener_tarea(pos_tarea).get_hora_fin_date().getMinutes());
-//                        }else{
-//                        hora_fin = "0"+Integer.toString(ltareas.obtener_tarea(pos_tarea).get_hora_fin_date().getHours()) + ":" +
-//                           Integer.toString(ltareas.obtener_tarea(pos_tarea).get_hora_fin_date().getMinutes());
-//                        }
-//                    }else{
-//                        if (ltareas.obtener_tarea(pos_tarea).get_hora_fin_date().getMinutes()<10){
-//                        hora_fin = Integer.toString(ltareas.obtener_tarea(pos_tarea).get_hora_fin_date().getHours()) + ":0" +
-//                           Integer.toString(ltareas.obtener_tarea(pos_tarea).get_hora_fin_date().getMinutes());
-//                        }else{
-//                        hora_fin = Integer.toString(ltareas.obtener_tarea(pos_tarea).get_hora_fin_date().getHours()) + ":" +
-//                           Integer.toString(ltareas.obtener_tarea(pos_tarea).get_hora_fin_date().getMinutes());
-//                        }
-//                    }
-//                    ltareas_trab[pos_trabajador-1].insertarnuevoespecial(ltareas.obtener_tarea(pos_tarea).get_nombre(), hora_inicio, hora_fin);
-//                    if (equitativo2(asignaciones) && !asignacion_completa(asignaciones)){
-//                        System.arraycopy(asignaciones, 0,parcial, 0, asignaciones.length);
-////                        System.arraycopy(ltareas_trab, 0, ltareas_trab_parcial, 0, ltareas_trab.length);
-//                        ltareas_trab_parcial = ltareas_trab.clone();
-//                                //parcial = asignaciones;
-//                    }
-//                    resultado = Extra(asignaciones, trabajadores, ltareas_trab, ltareas, matriz_res, ca);
-//                    //nodos_visitados++;
-//                   if (asignacion_completa(resultado)){
-//                       return resultado;
-//                   }else{
-//                        if (ltareas.obtener_tarea(pos_tarea).get_tipo()==true){
-//                            ltareas.obtener_tarea(pos_tarea).set_hora_inicio_date(null);
-//                            ltareas.obtener_tarea(pos_tarea).set_hora_fin_date(null);
-//                            comprobar_restricciones(matriz_res, ltareas);
-//                        }
-//
-//                        for (int x=0 ; x<tareas_creadas; x++){
-//                        ca[x] = new Lista_trabajadores ();
-//                        t = ca_backup [x].primero();
-//                        while (t != null){
-//                            ca [x].insertarnuevo(t.get_numero());
-//                            t = t.get_siguiente();
-//                        }
-//                    }
-//                       asignaciones[pos_tarea-1]=-1;
-//                       trabajadores[pos_trabajador-1]--;
-//                       ltareas_trab[pos_trabajador-1].eliminar_tarea(ltareas.obtener_tarea(pos_tarea).get_nombre());
-//                   }
-//                }
-//            }
-//            // tra = tra.get_siguiente();
-//        }
-//    }
-//        return fallo;
-//}
-
-//private void Todos() throws ParseException{
-//     tiempo=System.nanoTime();
-//    int[] resultado2 = null;
-//    try {
-//        resultado2 = PrimeroMVRGradoHeuristicoConsistenciaArco2(asignaciones, trabajadores, ltareas_trab, ltareas, matriz_res, consistencia_arco);
-//    } catch (ParseException ex) {
-//        Logger.getLogger(PSR.class.getName()).log(Level.SEVERE, null, ex);
-//    }
-//            tiempo2 = System.nanoTime();
-//            tiempo3=(tiempo2-tiempo);
-//            Double t = tiempo3/Math.pow(10, 9);
-////            System.out.println("Tiempo de ejecución: "+t);
-//            TextoNodosVisitados.setText(nodos_visitados.toString());
-//            nodos_visitados=0;
-//            TextoTiempoEjecucion.setText(t.toString());
-////            for (int i = 0; i < resultado2.length; i++) {
-////                System.out.println("La tarea: " + i + " la realiza el trabajador: " + resultado2[i]);
-////                System.out.println("hora inicio: " + ltareas.obtener_tarea(i + 1).get_hora_inicio());
-////                System.out.println("hora fin: " + ltareas.obtener_tarea(i + 1).get_hora_fin());
-////            }
-//            visualizar_resultados(resultado2);
-//}
 private boolean asignacion_completa (int[]asignaciones){
     for (int i=0; i<asignaciones.length;i++){
         if (asignaciones[i]==-1){
@@ -1099,25 +808,7 @@ private int seleccionar_tarea (int[] asignaciones){
     }
     return -1;
 }
-//private int seleccionar_tarea_mvr2 (int[] asignaciones) throws ParseException{
-//    int candidato=-1;
-//    tarea t;
-//    Date d = dateFormat.parse("01:00");
-//    System.out.println(d.getTime());
-//    for (int i=0;i<asignaciones.length;i++){
-//        if (asignaciones[i]==-1){
-//            t=ltareas.obtener_tarea(i+1);
-//            System.out.println(t.get_nombre());
-//            System.out.println(i+1);
-//            System.out.println(t.get_duracion_date().getTime());
-//            if (t.get_duracion_date().getTime() >d.getTime()){
-//                d=t.get_duracion_date();
-//                candidato=i+1;
-//            }
-//        }
-//    }
-//    return candidato;
-//}
+
 private int seleccionar_tarea_mvr (int[] asignaciones) throws ParseException{
     int contador=0, contref=1000;
     int tarea_sel = -1;
@@ -1174,38 +865,6 @@ private boolean x_mas_restrictivo_que_y (int x, int y){
     }
 }
 
-//private int seleccionar_tarea_mvr_gh2 (int[] asignaciones, Lista_tareas[] ltareas_trab, Lista_tareas ltareas, boolean[][] matriz_res) throws ParseException{
-//        int contador=0, contref=-1, contadora=0, contadorb=0;
-//    int tarea_sel = -1;
-//        for (int i=0;i<tareas_creadas;i++){
-//        if (asignaciones[i]==-1){
-//            for (int j=0;j<tareas_creadas;j++){
-//                if (matriz_res[i][j]){
-//                    contador++;
-//                }
-//            }
-//            if(contador > contref){
-//                tarea_sel = i+1;
-//                contref = contador;
-//            }else if (contador == contref){
-//                for (int ntrab=1;ntrab<=numero_trabajadores;ntrab++){
-//                    if(asignacion_valida_mvr(tarea_sel,ntrab-1, ltareas_trab, ltareas, matriz_res)){
-//                        contadora++;
-//                    }
-//                    if (asignacion_valida_mvr(i+1,ntrab-1, ltareas_trab, ltareas, matriz_res)){
-//                        contadorb++;
-//                    }
-//                }
-//                if (contadorb < contadora){
-//                    tarea_sel = i+1;System.out.println("BINGO");
-//                    contref = contador;
-//                }
-//            }
-//            contador=0;contadora=0;contadorb=0;
-//        }
-//    }
-//    return tarea_sel;
-//}
 
 private int seleccionar_tarea_mvr_gh (int[] asignaciones, Lista_tareas[] ltareas_trab, Lista_tareas ltareas, boolean[][] matriz_res) throws ParseException{
         int contador=0, contref=1000;
@@ -1231,17 +890,7 @@ private int seleccionar_tarea_mvr_gh (int[] asignaciones, Lista_tareas[] ltareas
     }
     return tarea_sel;
 }
-//private int seleccionar_trabajador(int[] trabajadores){
-//    int pos_trabajador=-1;
-//    int n_asignaciones=1000;
-//    for (int i=0;i<trabajadores.length;i++){
-//        if (trabajadores[i] < n_asignaciones){
-//            n_asignaciones = trabajadores[i];
-//            pos_trabajador=i;
-//        }
-//    }
-//    return pos_trabajador+1;//cambiado
-//}
+
 private boolean asignacion_valida_mvr(int ntarea, int ntrab, Lista_tareas[] ltareas_trab, Lista_tareas ltareas, boolean[][] matriz_res) throws ParseException{
     tarea ttrab,tpdt;
     String ini, dur;
@@ -1507,29 +1156,7 @@ private void limpiar_tabla(){
                 }
             }
 }
-//private void visualizar_resultadosNO(int[] resultados){
-//    tarea t;
-//    limpiar_tabla();
-//    if (resultados[1]!=-1){
-//        for (int k=0;k<numero_trabajadores;k++){
-//            TablaTareasAsignadas.setValueAt(k+1, k, 0);
-//        }
-//        for (int i=0; i< resultados.length; i++){
-//            int j=1;
-//            while (TablaTareasAsignadas.getValueAt(resultados[i]-1, j)!=null){
-//                j++;
-//            }
-//            t = ltareas.obtener_tarea(i+1);
-//            TablaTareasAsignadas.setValueAt(t.get_nombre(), resultados[i]-1,j);
-//    //            System.out.println("La tarea: " + i + " la realiza el trabajador: " + resultado2 [i]);
-//    //            System.out.println ("hora inicio: " + ltareas.obtener_tarea(i+1).get_hora_inicio());
-//    //            System.out.println ("hora fin: " + ltareas.obtener_tarea(i+1).get_hora_fin());
-//        }
-//        TextoDetalleTarea.setText("");
-//    }else{
-//        TextoDetalleTarea.setText("NO EXISTE SOLUCIÓN");
-//    }
-//}
+
 //CAMBIAR!!!! PARA QUE SE VEAN LOS RESULTADOS PARCIALES
 private void visualizar_resultados(int[] resultados) throws ParseException{
     tarea t;
@@ -1592,22 +1219,6 @@ private void visualizar_resultados(int[] resultados) throws ParseException{
 //        TextoDetalleTarea.setText("NO EXISTE SOLUCIÓN");
 //    }
 }
-//private boolean hay_solucion(){
-//    int conflictos=0;
-//    for (int i=0;i<tareas_creadas;i++){
-//        for (int j=0;j<tareas_creadas;j++){
-//            if (matriz_res[i][j] && i!=j){
-//                conflictos++;
-//            }
-//        }
-//        if (conflictos > numero_trabajadores){
-//            return false;
-//        }else{
-//            conflictos=0;
-//        }
-//    }
-//    return true;
-//}
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -1817,6 +1428,7 @@ private void visualizar_resultados(int[] resultados) throws ParseException{
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("IA - PSR. UIB 2011/12");
+        setLocation(new java.awt.Point(100, 100));
 
         MenuAlgoritmos.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -2670,32 +2282,7 @@ private void visualizar_resultados(int[] resultados) throws ParseException{
                         Logger.getLogger(PSR.class.getName()).log(Level.SEVERE, null, ex);
                     }              
                     } 
-//                    else if(Todo.isSelected()) {
-//                    try {
-//                        Todos();
-//                    } catch (ParseException ex) {
-//                        Logger.getLogger(PSR.class.getName()).log(Level.SEVERE, null, ex);
-//                    }
-//                    }
-//                    else{
-//                    try {
-//                        tiempo=System.nanoTime();
-//                        int [] resultado2 = Extra(asignaciones, trabajadores, ltareas_trab, ltareas, matriz_res, consistencia_arco);
-//                        tiempo2 = System.nanoTime();
-//                        tiempo3=(tiempo2-tiempo);
-//                        Double t = tiempo3/Math.pow(10, 9);
-//                        TextoNodosVisitados.setText(nodos_visitados.toString());
-//                        nodos_visitados=0;
-//                        TextoTiempoEjecucion.setText(t.toString());
-//                        if (!asignacion_completa(resultado2)){
-//                            visualizar_resultados(parcial);
-//                        }else{
-//                            visualizar_resultados(resultado2);
-//                        }
-//                    } catch (ParseException ex) {
-//                        Logger.getLogger(PSR.class.getName()).log(Level.SEVERE, null, ex);
-//                    }
-//                    }
+
                 }else{
                     TextoDetalleTarea.setText("¡Horario incompatible con las tareas!");
                     //JOptionPane.showMessageDialog(this, "¡Horario incompatible con las tareas!", "Información", JOptionPane.INFORMATION_MESSAGE);
