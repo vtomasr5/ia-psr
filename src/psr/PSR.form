@@ -218,6 +218,8 @@
     </Container>
     <Component class="javax.swing.ButtonGroup" name="GrupoTareasR">
     </Component>
+    <Component class="javax.swing.ButtonGroup" name="buttonGroupCrearTareas">
+    </Component>
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
@@ -553,7 +555,7 @@
                       <Component id="PanelCreacionTareas" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="PanelVisualizaTareasCreadas" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="84" max="32767" attributes="0"/>
+                      <EmptySpace pref="88" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -573,27 +575,23 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                          <Component id="LabelNombreTarea" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
-                                  <Component id="TextoNombreTarea" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="LabelCantidadTareas" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="TextoCantidadTareas" min="-2" pref="55" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
-                              </Group>
-                              <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="LabelDuracionTarea" min="-2" max="-2" attributes="0"/>
                                       <Group type="102" alignment="0" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="rbConHorario" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="rbSinHorario" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                               <Group type="102" alignment="0" attributes="0">
                                                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                                   <Component id="TextoDuracionTarea" max="32767" attributes="0"/>
                                               </Group>
-                                              <Group type="102" attributes="0">
+                                              <Group type="102" alignment="1" attributes="0">
                                                   <Component id="LabelHoraInicioTarea" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
                                                   <Component id="TextoHoraInicioTarea" min="-2" pref="69" max="-2" attributes="0"/>
@@ -606,13 +604,22 @@
                                           <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                               <Component id="BotonGenerarAleatorio" max="32767" attributes="0"/>
-                                              <Component id="BotonCrearTarea" max="32767" attributes="0"/>
+                                              <Component id="BotonCrearTarea" min="-2" pref="132" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
-                                      <Component id="LabelDuracionTarea" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace pref="164" max="32767" attributes="0"/>
+                                  <EmptySpace pref="107" max="32767" attributes="0"/>
                                   <Component id="BotonReiniciarTareas" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Component id="LabelNombreTarea" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="TextoNombreTarea" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="LabelCantidadTareas" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="TextoCantidadTareas" min="-2" pref="55" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -630,26 +637,28 @@
                                       <Component id="LabelCantidadTareas" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="TextoCantidadTareas" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="LabelHoraInicioTarea" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="TextoHoraInicioTarea" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="LabelHoraFinTarea" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="TextoHoraFinTarea" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="BotonCrearTarea" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="rbConHorario" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="TextoDuracionTarea" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="BotonGenerarAleatorio" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="rbSinHorario" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
                                   <Component id="LabelDuracionTarea" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="33" pref="92" max="32767" attributes="0"/>
+                                  <EmptySpace min="33" pref="94" max="32767" attributes="0"/>
                                   <Component id="BotonReiniciarTareas" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -709,7 +718,7 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="LabelNombreTarea">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Nombre tarea"/>
+                    <Property name="text" type="java.lang.String" value="Nombre tarea:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="LabelCantidadTareas">
@@ -744,6 +753,29 @@
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BotonReiniciarTareasActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JRadioButton" name="rbConHorario">
+                  <Properties>
+                    <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                      <ComponentRef name="buttonGroupCrearTareas"/>
+                    </Property>
+                    <Property name="selected" type="boolean" value="true"/>
+                    <Property name="text" type="java.lang.String" value="con horario"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rbConHorarioActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JRadioButton" name="rbSinHorario">
+                  <Properties>
+                    <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                      <ComponentRef name="buttonGroupCrearTareas"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="sin horario"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rbSinHorarioActionPerformed"/>
                   </Events>
                 </Component>
               </SubComponents>
@@ -950,7 +982,7 @@
                           <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
                           <Component id="LabelNodosVisitados" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
-                          <Component id="TextoNodosVisitados" pref="217" max="32767" attributes="0"/>
+                          <Component id="TextoNodosVisitados" pref="207" max="32767" attributes="0"/>
                           <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
                           <Component id="LabelTiempoEjecucion" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
