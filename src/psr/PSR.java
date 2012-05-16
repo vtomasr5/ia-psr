@@ -723,7 +723,132 @@ public class PSR extends javax.swing.JFrame {
         }
         return fallo;
 //    }
+    }
+    
+    private int[] PrimeroMVRGradoHeuristicoConsistenciaArco2(int[] asignaciones, int[] trabajadores, Lista_tareas[] ltareas_trab, Lista_tareas ltareas, boolean[][] matriz_res, Lista_trabajadores[] ca) throws ParseException {
+        int pos_tarea;
+        String hora_inicio, hora_fin;
+        int pos_trabajador;
+        trabajador tra;
+        int[] resultado = new int[tareas_creadas];
+        Lista_trabajadores[] ca_backup = new Lista_trabajadores[tareas_creadas];
+        if (asignacion_completa(asignaciones) && equitativo(asignaciones)) {
+            return asignaciones;
+        }
+        pos_tarea = seleccionar_tarea_mvr_gh(asignaciones, ltareas_trab, ltareas, matriz_res);//ltareas.obtener_tarea(pos_tarea).get_hora_inicio();
+        if (pos_tarea != -1) {
+            //for (int i=0;i<numero_trabajadores;i++){
+            tra = ca[pos_tarea - 1].primero();
+            while (tra != null) {
+                pos_trabajador = tra.get_numero();
+                nodos_visitados++;
+                if (pos_trabajador != -1) {
+                    if (asignacion_valida(pos_tarea, pos_trabajador - 1, ltareas_trab, ltareas, matriz_res)) {
+                        asignaciones[pos_tarea - 1] = pos_trabajador;
+                        trabajador t;
+                        for (int x = 0; x < tareas_creadas; x++) {
+                            ca_backup[x] = new Lista_trabajadores();
+                            t = ca[x].primero();
+                            while (t != null) {
+                                ca_backup[x].insertarnuevo(t.get_numero());
+                                t = t.get_siguiente();
+                            }
+                        }
+                        propagacion(pos_trabajador, pos_tarea, ca, matriz_res);
+                        trabajadores[pos_trabajador - 1]++;
+                        if (ltareas.obtener_tarea(pos_tarea).get_hora_inicio_date().getHours() < 10) {
+                            if (ltareas.obtener_tarea(pos_tarea).get_hora_inicio_date().getMinutes() < 10) {
+                                hora_inicio = "0" + Integer.toString(ltareas.obtener_tarea(pos_tarea).get_hora_inicio_date().getHours()) + ":0"
+                                        + Integer.toString(ltareas.obtener_tarea(pos_tarea).get_hora_inicio_date().getMinutes());
+                            } else {
+                                hora_inicio = "0" + Integer.toString(ltareas.obtener_tarea(pos_tarea).get_hora_inicio_date().getHours()) + ":"
+                                        + Integer.toString(ltareas.obtener_tarea(pos_tarea).get_hora_inicio_date().getMinutes());
+                            }
+                        } else {
+                            if (ltareas.obtener_tarea(pos_tarea).get_hora_inicio_date().getMinutes() < 10) {
+                                hora_inicio = Integer.toString(ltareas.obtener_tarea(pos_tarea).get_hora_inicio_date().getHours()) + ":0"
+                                        + Integer.toString(ltareas.obtener_tarea(pos_tarea).get_hora_inicio_date().getMinutes());
+                            } else {
+                                hora_inicio = Integer.toString(ltareas.obtener_tarea(pos_tarea).get_hora_inicio_date().getHours()) + ":"
+                                        + Integer.toString(ltareas.obtener_tarea(pos_tarea).get_hora_inicio_date().getMinutes());
+                            }
+                        }
+                        if (ltareas.obtener_tarea(pos_tarea).get_hora_fin_date().getHours() < 10) {
+                            if (ltareas.obtener_tarea(pos_tarea).get_hora_fin_date().getMinutes() < 10) {
+                                hora_fin = "0" + Integer.toString(ltareas.obtener_tarea(pos_tarea).get_hora_fin_date().getHours()) + ":0"
+                                        + Integer.toString(ltareas.obtener_tarea(pos_tarea).get_hora_fin_date().getMinutes());
+                            } else {
+                                hora_fin = "0" + Integer.toString(ltareas.obtener_tarea(pos_tarea).get_hora_fin_date().getHours()) + ":"
+                                        + Integer.toString(ltareas.obtener_tarea(pos_tarea).get_hora_fin_date().getMinutes());
+                            }
+                        } else {
+                            if (ltareas.obtener_tarea(pos_tarea).get_hora_fin_date().getMinutes() < 10) {
+                                hora_fin = Integer.toString(ltareas.obtener_tarea(pos_tarea).get_hora_fin_date().getHours()) + ":0"
+                                        + Integer.toString(ltareas.obtener_tarea(pos_tarea).get_hora_fin_date().getMinutes());
+                            } else {
+                                hora_fin = Integer.toString(ltareas.obtener_tarea(pos_tarea).get_hora_fin_date().getHours()) + ":"
+                                        + Integer.toString(ltareas.obtener_tarea(pos_tarea).get_hora_fin_date().getMinutes());
+                            }
+                        }
+                        ltareas_trab[pos_trabajador - 1].insertarnuevoespecial(ltareas.obtener_tarea(pos_tarea).get_nombre(), hora_inicio, hora_fin);
+                        AC3(ca, matriz_res, asignaciones);
+                        if (equitativo2(asignaciones) && !asignacion_completa(asignaciones)) {
+                            System.arraycopy(asignaciones, 0, parcial, 0, asignaciones.length);
+//                        System.arraycopy(ltareas_trab, 0, ltareas_trab_parcial, 0, ltareas_trab.length);
+                            ltareas_trab_parcial = ltareas_trab.clone();
+                            //parcial = asignaciones;
+                        }
+                        resultado = PrimeroMVRGradoHeuristicoConsistenciaArco2(asignaciones, trabajadores, ltareas_trab, ltareas, matriz_res, ca);
+                        //nodos_visitados++;
+                        if (asignacion_completa(resultado) && equitativo(resultado)) {
+                            return resultado;
+                        } else {
+                            if (ltareas.obtener_tarea(pos_tarea).get_tipo() == true) {
+                                ltareas.obtener_tarea(pos_tarea).set_hora_inicio_date(null);
+                                ltareas.obtener_tarea(pos_tarea).set_hora_fin_date(null);
+                                comprobar_restricciones(matriz_res, ltareas);
+                            }
 
+                            for (int x = 0; x < tareas_creadas; x++) {
+                                ca[x] = new Lista_trabajadores();
+                                t = ca_backup[x].primero();
+                                while (t != null) {
+                                    ca[x].insertarnuevo(t.get_numero());
+                                    t = t.get_siguiente();
+                                }
+                            }
+                            asignaciones[pos_tarea - 1] = -1;
+                            trabajadores[pos_trabajador - 1]--;
+                            ltareas_trab[pos_trabajador - 1].eliminar_tarea(ltareas.obtener_tarea(pos_tarea).get_nombre());
+                        }
+                    }
+                }
+                tra = tra.get_siguiente();
+            }
+        }
+        return fallo;
+    }
+
+    private void Todos() throws ParseException {
+        tiempo = System.nanoTime();
+        int[] resultado2 = null;
+        try {
+            resultado2 = PrimeroMVRGradoHeuristicoConsistenciaArco2(asignaciones, trabajadores, ltareas_trab, ltareas, matriz_res, consistencia_arco);
+        } catch (ParseException ex) {
+            Logger.getLogger(PSR.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        tiempo2 = System.nanoTime();
+        tiempo3 = (tiempo2 - tiempo);
+        Double t = tiempo3 / Math.pow(10, 9);
+        TextoNodosVisitados.setText(nodos_visitados.toString());
+        nodos_visitados = 0;
+        TextoTiempoEjecucion.setText(t.toString());
+//            for (int i = 0; i < resultado2.length; i++) {
+//                System.out.println("La tarea: " + i + " la realiza el trabajador: " + resultado2[i]);
+//                System.out.println("hora inicio: " + ltareas.obtener_tarea(i + 1).get_hora_inicio());
+//                System.out.println("hora fin: " + ltareas.obtener_tarea(i + 1).get_hora_fin());
+//            }
+        visualizar_resultados(resultado2);
     }
 
     private boolean asignacion_completa(int[] asignaciones) {
@@ -1255,6 +1380,7 @@ public class PSR extends javax.swing.JFrame {
         PrimeroConsistenciaArco = new javax.swing.JRadioButton();
         PrimeroGradoHeuristico = new javax.swing.JRadioButton();
         PrimeroMVR = new javax.swing.JRadioButton();
+        Todo = new javax.swing.JRadioButton();
         PanelInfoEmpresa = new javax.swing.JPanel();
         TextoHoraInicial = new javax.swing.JTextField();
         TextoHoraFin = new javax.swing.JTextField();
@@ -1443,6 +1569,11 @@ public class PSR extends javax.swing.JFrame {
         GrupoAlgoritmos.add(PrimeroProf);
         PrimeroProf.setSelected(true);
         PrimeroProf.setText("1º profundidad vuelta atrás");
+        PrimeroProf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PrimeroProfActionPerformed(evt);
+            }
+        });
 
         GrupoAlgoritmos.add(PrimeroMVRGradoHeuristico);
         PrimeroMVRGradoHeuristico.setText("1º profundidad + MVR + grado heurístico");
@@ -1456,18 +1587,22 @@ public class PSR extends javax.swing.JFrame {
         GrupoAlgoritmos.add(PrimeroMVR);
         PrimeroMVR.setText("1º profundidad + MVR");
 
+        GrupoAlgoritmos.add(Todo);
+        Todo.setText("1º profundidad + MVR + grado + arco");
+
         javax.swing.GroupLayout PanelAlgoritmosLayout = new javax.swing.GroupLayout(PanelAlgoritmos);
         PanelAlgoritmos.setLayout(PanelAlgoritmosLayout);
         PanelAlgoritmosLayout.setHorizontalGroup(
             PanelAlgoritmosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelAlgoritmosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(PanelAlgoritmosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(PanelAlgoritmosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(PrimeroMVR)
                     .addComponent(PrimeroGradoHeuristico)
                     .addComponent(PrimeroConsistenciaArco)
-                    .addComponent(PrimeroMVRGradoHeuristico)
-                    .addComponent(PrimeroProf))
+                    .addComponent(PrimeroMVRGradoHeuristico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(PrimeroProf)
+                    .addComponent(Todo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         PanelAlgoritmosLayout.setVerticalGroup(
@@ -1483,7 +1618,9 @@ public class PSR extends javax.swing.JFrame {
                 .addComponent(PrimeroConsistenciaArco)
                 .addGap(18, 18, 18)
                 .addComponent(PrimeroMVRGradoHeuristico)
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(Todo)
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         PanelInfoEmpresa.setBorder(javax.swing.BorderFactory.createTitledBorder("Información empresa"));
@@ -2036,10 +2173,8 @@ public class PSR extends javax.swing.JFrame {
 
         LabelTiempoEjecucion.setText("Tiempo ejecución:");
 
-        TextoNodosVisitados.setFocusable(false);
         TextoNodosVisitados.setPreferredSize(new java.awt.Dimension(100, 27));
 
-        TextoTiempoEjecucion.setFocusable(false);
         TextoTiempoEjecucion.setPreferredSize(new java.awt.Dimension(100, 27));
 
         javax.swing.GroupLayout PanelEficienciaComputacionalLayout = new javax.swing.GroupLayout(PanelEficienciaComputacional);
@@ -2072,6 +2207,7 @@ public class PSR extends javax.swing.JFrame {
         );
 
         TextoDetalleTarea.setColumns(20);
+        TextoDetalleTarea.setEditable(false);
         TextoDetalleTarea.setRows(5);
         jScrollPane3.setViewportView(TextoDetalleTarea);
 
@@ -2287,8 +2423,13 @@ public class PSR extends javax.swing.JFrame {
                     } catch (ParseException ex) {
                         Logger.getLogger(PSR.class.getName()).log(Level.SEVERE, null, ex);
                     }
+                } else if (Todo.isSelected()) {
+                    try {
+                        Todos();
+                    } catch (ParseException ex) {
+                        Logger.getLogger(PSR.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
-
             } else {
                 TextoDetalleTarea.setText("¡Horario incompatible con las tareas!");
                 //JOptionPane.showMessageDialog(this, "¡Horario incompatible con las tareas!", "Información", JOptionPane.INFORMATION_MESSAGE);
@@ -2389,6 +2530,10 @@ public class PSR extends javax.swing.JFrame {
         TextoHoraFinTarea.setEnabled(false);
     }//GEN-LAST:event_rbSinHorarioActionPerformed
 
+    private void PrimeroProfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PrimeroProfActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PrimeroProfActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -2463,6 +2608,7 @@ public class PSR extends javax.swing.JFrame {
     private javax.swing.JTextField TextoNumeroTotalTareas;
     private javax.swing.JTextField TextoNumeroTrabajadores;
     private javax.swing.JTextField TextoTiempoEjecucion;
+    private javax.swing.JRadioButton Todo;
     private javax.swing.ButtonGroup buttonGroupCrearTareas;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;

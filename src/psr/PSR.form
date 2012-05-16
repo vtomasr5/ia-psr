@@ -318,12 +318,13 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="PrimeroMVR" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="PrimeroGradoHeuristico" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="PrimeroConsistenciaArco" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="PrimeroMVRGradoHeuristico" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="PrimeroMVRGradoHeuristico" alignment="0" max="32767" attributes="0"/>
                           <Component id="PrimeroProf" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="Todo" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -342,7 +343,9 @@
                       <Component id="PrimeroConsistenciaArco" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="PrimeroMVRGradoHeuristico" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="41" max="32767" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="Todo" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="12" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -356,6 +359,9 @@
                 <Property name="selected" type="boolean" value="true"/>
                 <Property name="text" type="java.lang.String" value="1&#xba; profundidad vuelta atr&#xe1;s"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="PrimeroProfActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JRadioButton" name="PrimeroMVRGradoHeuristico">
               <Properties>
@@ -387,6 +393,14 @@
                   <ComponentRef name="GrupoAlgoritmos"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="1&#xba; profundidad + MVR"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JRadioButton" name="Todo">
+              <Properties>
+                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                  <ComponentRef name="GrupoAlgoritmos"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="1&#xba; profundidad + MVR + grado + arco"/>
               </Properties>
             </Component>
           </SubComponents>
@@ -1026,7 +1040,6 @@
                 </Component>
                 <Component class="javax.swing.JTextField" name="TextoNodosVisitados">
                   <Properties>
-                    <Property name="focusable" type="boolean" value="false"/>
                     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                       <Dimension value="[100, 27]"/>
                     </Property>
@@ -1034,7 +1047,6 @@
                 </Component>
                 <Component class="javax.swing.JTextField" name="TextoTiempoEjecucion">
                   <Properties>
-                    <Property name="focusable" type="boolean" value="false"/>
                     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                       <Dimension value="[100, 27]"/>
                     </Property>
@@ -1052,6 +1064,7 @@
                 <Component class="javax.swing.JTextArea" name="TextoDetalleTarea">
                   <Properties>
                     <Property name="columns" type="int" value="20"/>
+                    <Property name="editable" type="boolean" value="false"/>
                     <Property name="rows" type="int" value="5"/>
                   </Properties>
                 </Component>
